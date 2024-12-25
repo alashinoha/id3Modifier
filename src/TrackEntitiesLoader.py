@@ -25,7 +25,8 @@ class TrackEntitiesLoader:
             tracks.append(
                 TrackEntity(
                     abs_file_path=os.path.abspath(os.path.join(self.path, track.file_name)),
-                    abs_img_path=None if setting.album_img != "" else os.path.abspath(os.path.join(self.path, setting.album_img)),
+                    abs_img_path=None if setting.album_img == "" else os.path.abspath(os.path.join(self.path, setting.album_img)),
+                    img_type=setting.album_img_type,
                     track_number=track.track_number,
                     track_total=setting.track_total,
                     title=track.title,
@@ -46,6 +47,7 @@ class TrackEntitiesLoader:
             setting.disc_total = data["disc_total"]
             setting.track_total = data["track_total"]
             setting.album_img = data["album_img"]
+            setting.album_img_type = data["album_img_type"]
             for d in data["tracks"]:
                 track: TagSettingsTrackEntity = TagSettingsTrackEntity()
                 track.title = d["title"]
@@ -68,6 +70,7 @@ class TrackEntitiesLoader:
         # settingの情報の更新
         setting.track_total = len(file_list_music)
         setting.album_img = img_path
+        setting.album_img_type = self.extract_img_type(img_path)
         for index, item in enumerate(file_list_music):
             track = TagSettingsTrackEntity()
             track.track_number = index + 1
@@ -102,3 +105,12 @@ class TrackEntitiesLoader:
     def extract_title(file_name):
         _, ext_with_dot = os.path.splitext(file_name)
         return _
+
+    def extract_img_type(self, img_path: str) -> str:
+        if img_path is None or img_path == "":
+            return "jpeg"
+        ext = self.extract_ext(img_path)
+        if ext == "jpeg" or ext == "jpg":
+            return "jpeg"
+        if ext == "png":
+            return "png"
