@@ -13,9 +13,9 @@ class TrackEntitiesLoader:
         self.path = path
 
     def is_exists_settings_file(self) -> bool:
-        return os.path.exists(self._get_setting_file_path())
+        return os.path.exists(self.get_setting_file_path())
 
-    def _get_setting_file_path(self):
+    def get_setting_file_path(self):
         return os.path.abspath(os.path.join(self.path, self.settings_file_name))
 
     def load_list_from_settings(self) -> list[TrackEntity]:
@@ -39,7 +39,7 @@ class TrackEntitiesLoader:
 
     def load_settings(self) -> TagSettingsEntity:
         setting: TagSettingsEntity = TagSettingsEntity()
-        with open(self._get_setting_file_path(), "r", encoding="utf-8") as file:
+        with open(self.get_setting_file_path(), "r", encoding="utf-8") as file:
             data = yaml.safe_load(file)
             setting.album = data["album"]
             setting.artist = data["artist"]
@@ -79,7 +79,7 @@ class TrackEntitiesLoader:
             track.file_type = TrackEntitiesLoader.extract_ext(item)
             setting.tracks.append(track)
         # ファイルの書き込み
-        with open(self._get_setting_file_path(), "w", encoding="utf-8") as file:
+        with open(self.get_setting_file_path(), "w", encoding="utf-8") as file:
             yaml.dump(setting.dump(), file, allow_unicode=True, default_flow_style=False)
 
     @staticmethod
