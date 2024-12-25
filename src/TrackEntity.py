@@ -4,6 +4,8 @@ class TrackEntity:
     img_type: str = "jpeg"
     track_number: int = None
     track_total: int = None
+    disc_number: int = None
+    disc_total: int = None
     title: str = None
     album: str = None
     file_type: str = None
@@ -15,6 +17,8 @@ class TrackEntity:
                  img_type: str = "jpeg",
                  track_number: int = None,
                  track_total: int = None,
+                 disc_number: int = None,
+                 disc_total: int = None,
                  title: str = None,
                  album: str = None,
                  file_type: str = None,
@@ -25,6 +29,8 @@ class TrackEntity:
         self.abs_img_path = abs_img_path
         self.track_number = track_number
         self.track_total = track_total
+        self.disc_number = disc_number
+        self.disc_total = disc_total
         self.title = title
         self.album = album
         self.file_type = file_type

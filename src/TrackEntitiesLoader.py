@@ -29,6 +29,8 @@ class TrackEntitiesLoader:
                     img_type=setting.album_img_type,
                     track_number=track.track_number,
                     track_total=setting.track_total,
+                    disc_number=setting.disc_number,
+                    disc_total=setting.disc_total,
                     title=track.title,
                     album=setting.album,
                     file_type=track.file_type,

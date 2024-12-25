@@ -20,12 +20,16 @@ class TagManager:
         song = taglib.File(track_entity.abs_file_path)
         song.tags["ALBUM"] = TagManager.__convert_str_to_tag(track_entity.album)
         song.tags["TITLE"] = TagManager.__convert_str_to_tag(track_entity.title)
+        song.tags["ARTIST"] = TagManager.__convert_str_to_tag(track_entity.artist)
         if track_entity.file_type == "flac":
             # flacだけトラックナンバーの形式が違う
             song.tags["TRACKNUMBER"] = TagManager.__convert_str_to_tag(track_entity.track_number)
             song.tags["TRACKTOTAL"] = TagManager.__convert_str_to_tag(track_entity.track_total)
+            song.tags["DISCNUMBER"] = TagManager.__convert_str_to_tag(track_entity.disc_number)
+            song.tags["DISCTOTAL"] = TagManager.__convert_str_to_tag(track_entity.disc_total)
         else:
             song.tags["TRACKNUMBER"] = TagManager.__extract_track_number(track_entity)
+            song.tags["DISCNUMBER"] = TagManager.__extract_disc_number(track_entity)
         song.save()
         TagManager.update_track_image(track_entity)
 
@@ -46,6 +50,13 @@ class TagManager:
             return [""]
         else:
             return [f"{track_entity.track_number}/{track_entity.track_total}"]
+
+    @classmethod
+    def __extract_disc_number(cls, track_entity: TrackEntity) -> list[str]:
+        if track_entity.disc_number is None:
+            return [""]
+        else:
+            return [f"{track_entity.disc_number}/{track_entity.disc_total}"]
 
     @classmethod
     def update_track_image(cls, track_entity):
