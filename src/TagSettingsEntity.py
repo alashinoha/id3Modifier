@@ -1,12 +1,10 @@
-
-
 class TagSettingsTrackEntity:
 
-    track_number: int = 1
-
-    title: str = None
-    file_name: str = None
-    file_type: str = None
+    def __init__(self):
+        self.track_number: int = 1
+        self.title: str = None
+        self.file_name: str = None
+        self.file_type: str = None
 
     def dump(self) -> dict:
         return {
@@ -16,17 +14,18 @@ class TagSettingsTrackEntity:
             "file_type": self.file_type,
         }
 
+
 class TagSettingsEntity:
 
-    album: str = ""
-    artist: str = ""
-    disc_number: int = 1
-    disc_total: int = 1
-    track_total: int = 1
-    album_img: str = ""
-    album_img_type: str = "jpeg"
-
-    tracks: list[TagSettingsTrackEntity] = []
+    def __init__(self):
+        self.album: str = ""
+        self.artist: str = ""
+        self.disc_number: int = 1
+        self.disc_total: int = 1
+        self.track_total: int = 1
+        self.album_img: str = ""
+        self.album_img_type: str = "jpeg"
+        self.tracks: list[TagSettingsTrackEntity] = []
 
     def dump(self) -> dict:
         return {

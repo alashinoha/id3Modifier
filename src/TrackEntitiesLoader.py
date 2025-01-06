@@ -25,7 +25,8 @@ class TrackEntitiesLoader:
             tracks.append(
                 TrackEntity(
                     abs_file_path=os.path.abspath(os.path.join(self.path, track.file_name)),
-                    abs_img_path=None if setting.album_img == "" else os.path.abspath(os.path.join(self.path, setting.album_img)),
+                    abs_img_path=None if setting.album_img == "" else os.path.abspath(
+                        os.path.join(self.path, setting.album_img)),
                     img_type=setting.album_img_type,
                     track_number=track.track_number,
                     track_total=setting.track_total,
@@ -105,8 +106,8 @@ class TrackEntitiesLoader:
 
     @staticmethod
     def extract_title(file_name):
-        _, ext_with_dot = os.path.splitext(file_name)
-        return _
+        title, _ = os.path.splitext(file_name)
+        return title
 
     def extract_img_type(self, img_path: str) -> str:
         if img_path is None or img_path == "":
